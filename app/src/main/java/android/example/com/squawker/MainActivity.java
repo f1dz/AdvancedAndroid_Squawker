@@ -35,6 +35,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import java.sql.Time;
+
+import timber.log.Timber;
+
 public class MainActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -63,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Timber.plant(new Timber.DebugTree());
+
         mRecyclerView = (RecyclerView) findViewById(R.id.squawks_recycler_view);
 
         // Use this setting to improve performance if you know that changes
@@ -86,6 +92,10 @@ public class MainActivity extends AppCompatActivity implements
         // Start the loader
         getSupportLoaderManager().initLoader(LOADER_ID_MESSAGES, null, this);
 
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null && bundle.containsKey("test")){
+            Timber.d("Contains: " + bundle.getString("test"));
+        }
     }
 
     @Override
